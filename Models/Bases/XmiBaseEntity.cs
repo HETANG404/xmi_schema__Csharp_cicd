@@ -9,7 +9,7 @@ public class XmiBaseEntity
     public string Description { get; set; }
     public string EntityType { get; set; }
 
-    // 空构造函数
+
 
     // 带参数构造函数
     public XmiBaseEntity(
