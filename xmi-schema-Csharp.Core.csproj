@@ -5,6 +5,7 @@
     <RootNamespace>xmi_schema_Csharp.Core</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version></Version>
   </PropertyGroup>
 
   <ItemGroup>
