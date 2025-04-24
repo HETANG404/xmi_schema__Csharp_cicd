@@ -2,9 +2,9 @@ namespace XmiCore;
 
 public class XmiPoint3D : XmiBaseGeometry
 {
-    public float X { get; set; }
-    public float Y { get; set; }
-    public float Z { get; set; }
+    public double X { get; set; }
+    public double Y { get; set; }
+    public double Z { get; set; }
 
     public XmiPoint3D(
         string id,
@@ -12,9 +12,9 @@ public class XmiPoint3D : XmiBaseGeometry
         string ifcGuid,
         string nativeId,
         string description,
-        float x,
-        float y,
-        float z
+        double x,
+        double y,
+        double z
     ) : base(id, name, ifcGuid, nativeId, description)
     {
         X = x;

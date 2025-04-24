@@ -5,11 +5,11 @@ namespace XmiCore;
 
 
 // DependencyAnalyzer
-public class DependencyAnalyzerExtension
+public class ExtensionDependencyAnalyzer
 {
     private readonly AdjacencyGraph<XmiBaseEntity, Edge<XmiBaseEntity>> _graph;
 
-    public DependencyAnalyzerExtension(List<XmiBaseEntity> entities, List<XmiBaseRelationship> relationships)
+    public ExtensionDependencyAnalyzer(List<XmiBaseEntity> entities, List<XmiBaseRelationship> relationships)
     {
         _graph = new AdjacencyGraph<XmiBaseEntity, Edge<XmiBaseEntity>>();
 

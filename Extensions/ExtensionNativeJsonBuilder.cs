@@ -1,10 +1,10 @@
 namespace XmiCore;
 using Newtonsoft.Json;
-public class XmiModelNativeJsonBuilderExtension
+public class ExtensionNativeJsonBuilder
 {
     private readonly XmiModel _model;
 
-    public XmiModelNativeJsonBuilderExtension(XmiModel model)
+    public ExtensionNativeJsonBuilder(XmiModel model)
     {
         _model = model;
     }

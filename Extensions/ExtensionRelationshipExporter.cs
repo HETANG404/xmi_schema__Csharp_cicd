@@ -1,10 +1,10 @@
 namespace XmiCore
 {
-    public class XmiRelationshipExporterExtension
+    public class ExtensionRelationshipExporter
     {
         private readonly IRelationshipManager<XmiBaseRelationship> _relationshipManager;
 
-        public XmiRelationshipExporterExtension(IRelationshipManager<XmiBaseRelationship> relationshipManager)
+        public ExtensionRelationshipExporter(IRelationshipManager<XmiBaseRelationship> relationshipManager)
         {
             _relationshipManager = relationshipManager;
         }
@@ -19,6 +19,11 @@ namespace XmiCore
                     _relationshipManager.AddRelationship(new XmiHasGeometry(spc, point));
                 }
 
+                if (entity is XmiStructuralPointConnection spcWithStorey && spcWithStorey.Storey is XmiStructuralStorey storey)
+                {
+                    _relationshipManager.AddRelationship(new XmiHasStructuralStorey(spcWithStorey, storey));
+                }
+
                 // CrossSection → Material
                 if (entity is XmiStructuralCrossSection crossSection && crossSection.Material != null)
                 {
@@ -29,6 +34,12 @@ namespace XmiCore
                 if (entity is XmiStructuralCurveMember curve && curve.CrossSection != null)
                 {
                     _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curve, curve.CrossSection));
+                }
+
+                // CurveMember → Storey
+                if (entity is XmiStructuralCurveMember curveWithStorey && curveWithStorey.Storey != null)
+                {
+                    _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curveWithStorey, curveWithStorey.Storey));
                 }
 
                 // CurveMember → Segments
@@ -49,10 +60,29 @@ namespace XmiCore
                     }
                 }
 
+                // CurveMember → BeginNode
+                if (entity is XmiStructuralCurveMember curveWithBeginNode && curveWithBeginNode.BeginNode != null)
+                {
+                    _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curveWithBeginNode, curveWithBeginNode.BeginNode));
+                }
+
+                // CurveMember → EndNode
+                if (entity is XmiStructuralCurveMember curveWithEndNode && curveWithEndNode.EndNode != null)
+                {
+                    _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curveWithEndNode, curveWithEndNode.EndNode));
+                }
+
+
                 // SurfaceMember → Material
                 if (entity is XmiStructuralSurfaceMember surface && surface.Material != null)
                 {
                     _relationshipManager.AddRelationship(new XmiHasStructuralMaterial(surface, surface.Material));
+                }
+
+                // SurfaceMember → Storey
+                if (entity is XmiStructuralSurfaceMember surfaceWithStorey && surfaceWithStorey.Storey != null)
+                {
+                    _relationshipManager.AddRelationship(new XmiHasStructuralMaterial(surfaceWithStorey, surfaceWithStorey.Storey));
                 }
 
                 // SurfaceMember → Segments
@@ -97,6 +127,9 @@ namespace XmiCore
 
                     if (geomArc.EndPoint != null)
                         _relationshipManager.AddRelationship(new XmiHasGeometry(geomArc, geomArc.EndPoint));
+                    
+                    if (geomArc.CentrePoint != null)
+                        _relationshipManager.AddRelationship(new XmiHasGeometry(geomArc, geomArc.CentrePoint));
                 }
                 // XmiLine3D → StartPoint3D/EndPoint3D
                 if (entity is XmiLine3D geomLine)

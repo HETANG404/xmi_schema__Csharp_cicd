@@ -3,7 +3,7 @@ using XmiCore;
 
 namespace XmiBuilder
 {
-    public class XmiSchemaBuilder
+    public class XmiSchemaModelBuilder
     {
         private readonly EntityManager<XmiBaseEntity> _entityManager = new();
         private readonly RelationshipManager<XmiBaseRelationship> _relationshipManager = new();
@@ -30,7 +30,7 @@ namespace XmiBuilder
             };
 
             // 构建关系
-            var exporter = new XmiRelationshipExporterExtension(_relationshipManager);
+            var exporter = new ExtensionRelationshipExporter(_relationshipManager);
             exporter.ExportRelationships(model);
 
             model.Relationships = _relationshipManager.GetAll().ToList();
@@ -43,7 +43,7 @@ namespace XmiBuilder
         public List<XmiBaseEntity> GetTopologicallySortedEntities()
         {
             var model = BuildModel();
-            var analyzer = new DependencyAnalyzerExtension(model.Entities, model.Relationships);
+            var analyzer = new ExtensionDependencyAnalyzer(model.Entities, model.Relationships);
             return analyzer.GetTopologicallySortedEntities();
         }
 
@@ -53,7 +53,7 @@ namespace XmiBuilder
         public List<List<XmiBaseEntity>> GetCycles()
         {
             var model = BuildModel();
-            var analyzer = new DependencyAnalyzerExtension(model.Entities, model.Relationships);
+            var analyzer = new ExtensionDependencyAnalyzer(model.Entities, model.Relationships);
             return analyzer.DetectCycles();
         }
 
@@ -63,7 +63,7 @@ namespace XmiBuilder
         public void ExportJson(string outputPath)
         {
             var model = BuildModel();
-            var jsonBuilder = new XmiModelNativeJsonBuilderExtension(model);
+            var jsonBuilder = new ExtensionNativeJsonBuilder(model);
             jsonBuilder.Save(outputPath);
         }
 
@@ -73,7 +73,7 @@ namespace XmiBuilder
         public string BuildJsonString()
         {
             var model = BuildModel();
-            var jsonBuilder = new XmiModelNativeJsonBuilderExtension(model);
+            var jsonBuilder = new ExtensionNativeJsonBuilder(model);
             return jsonBuilder.BuildJson();
         }
     }

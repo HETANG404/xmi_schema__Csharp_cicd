@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("xmi-schema-Csharp.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.0.4.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.4+2ce78d14202e35dd2e78f79dc7f45fa0dbca3080")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.4+91d8f99d7b8136712f303151c9c8141a0f3850b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("xmi-schema-Csharp.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("xmi-schema-Csharp.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.0.4.0")]
