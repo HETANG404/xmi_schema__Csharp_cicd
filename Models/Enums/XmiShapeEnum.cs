@@ -10,5 +10,6 @@ public enum XmiShapeEnum
     [EnumValue("I Shape")] IShape,
     [EnumValue("Square Hollow")] SquareHollow,
     [EnumValue("Rectangular Hollow")] RectangularHollow,
-    [EnumValue("Others")] Others
+    [EnumValue("Others")] Others,
+        [EnumValue("Unknown")] Unknown
 }

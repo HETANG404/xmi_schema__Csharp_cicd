@@ -7,5 +7,6 @@ public enum XmiSegmentTypeEnum
     [EnumValue("Parabolic Arc")] ParabolicArc,
     [EnumValue("Bezier")] Bezier,
     [EnumValue("Spline")] Spline,
-    [EnumValue("Others")] Others
+    [EnumValue("Others")] Others,
+    [EnumValue("Unknown")] Unknown
 }

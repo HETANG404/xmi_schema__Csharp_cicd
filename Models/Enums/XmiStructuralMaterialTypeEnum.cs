@@ -9,5 +9,6 @@ public enum XmiStructuralMaterialTypeEnum
     [EnumValue("Masonry")] Masonry,
     [EnumValue("Others")] Others,
     [EnumValue("Rebar")] Rebar,
-    [EnumValue("Tendon")] Tendon
+    [EnumValue("Tendon")] Tendon,
+        [EnumValue("Unknown")] Unknown
 }

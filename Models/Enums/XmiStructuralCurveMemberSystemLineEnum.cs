@@ -10,5 +10,6 @@ public enum XmiStructuralCurveMemberSystemLineEnum
     [EnumValue("MiddleRight")] MiddleRight,
     [EnumValue("BottomLeft")] BottomLeft,
     [EnumValue("BottomMiddle")] BottomMiddle,
-    [EnumValue("BottomRight")] BottomRight
+    [EnumValue("BottomRight")] BottomRight,
+        [EnumValue("Unknown")] Unknown
 }

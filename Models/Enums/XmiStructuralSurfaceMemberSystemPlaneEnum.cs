@@ -7,5 +7,6 @@ public enum XmiStructuralSurfaceMemberSystemPlaneEnum
     [EnumValue("Top")] Top,
     [EnumValue("Middle")] Middle,
     [EnumValue("Left")] Left,
-    [EnumValue("Right")] Right
+    [EnumValue("Right")] Right,
+        [EnumValue("Unknown")] Unknown
 }

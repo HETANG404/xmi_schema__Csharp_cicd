@@ -9,5 +9,6 @@ public enum XmiStructuralSurfaceMemberTypeEnum
     [EnumValue("Pilecap")] Pilecap,
     [EnumValue("RoofPanel")] RoofPanel,
     [EnumValue("WallPanel")] WallPanel,
-    [EnumValue("Raft")] Raft
+    [EnumValue("Raft")] Raft,
+        [EnumValue("Unknown")] Unknown
 }

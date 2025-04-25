@@ -11,5 +11,6 @@ public enum XmiUnitEnum
     [EnumValue("cm")] Centimeter,
     [EnumValue("mm^3")] Millimeter3,
     [EnumValue("mm^2")] Millimeter2,
-    [EnumValue("sec")] Second
+    [EnumValue("sec")] Second,
+        [EnumValue("Unknown")] Unknown
 }

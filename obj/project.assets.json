@@ -96,7 +96,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "0.0.5",
+    "version": "0.0.7",
     "restore": {
       "projectUniqueName": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj",
       "projectName": "xmi-schema-Csharp.Core",
