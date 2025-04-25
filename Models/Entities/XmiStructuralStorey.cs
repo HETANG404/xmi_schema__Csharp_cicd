@@ -2,8 +2,8 @@ namespace XmiCore;
 
 public class XmiStructuralStorey : XmiBaseEntity
 {
-    public float StoreyElevation { get; set; }
-    public float StoreyMass { get; set; }
+    public double StoreyElevation { get; set; }
+    public double StoreyMass { get; set; }
     public string StoreyHorizontalReactionX { get; set; }
     public string StoreyHorizontalReactionY { get; set; }
     public string StoreyVerticalReaction { get; set; }
@@ -14,8 +14,8 @@ public class XmiStructuralStorey : XmiBaseEntity
         string ifcguid,
         string nativeId,
         string description,
-        float storeyElevation,
-        float storeyMass,
+        double storeyElevation,
+        double storeyMass,
         string storeyHorizontalReactionX,
         string storeyHorizontalReactionY,
         string storeyVerticalReaction
