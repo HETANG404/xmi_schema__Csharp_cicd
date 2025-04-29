@@ -11,19 +11,19 @@ public class XmiStructuralCurveMember : XmiBaseEntity
     public XmiStructuralCurveMemberSystemLineEnum SystemLine { get; set; }
     public XmiStructuralPointConnection BeginNode { get; set; }
     public XmiStructuralPointConnection EndNode { get; set; }
-    public float Length { get; set; }
+    public double Length { get; set; }
 
 
     public string LocalAxisX { get; set; }
     public string LocalAxisY { get; set; }
     public string LocalAxisZ { get; set; }
 
-    public float BeginNodeYOffset { get; set; }
-    public float EndNodeYOffset { get; set; }
-    public float BeginNodeZOffset { get; set; }
-    public float EndNodeZOffset { get; set; }
-    public float BeginNodeXOffset { get; set; }
-    public float EndNodeXOffset { get; set; }
+    public double BeginNodeYOffset { get; set; }
+    public double EndNodeYOffset { get; set; }
+    public double BeginNodeZOffset { get; set; }
+    public double EndNodeZOffset { get; set; }
+    public double BeginNodeXOffset { get; set; }
+    public double EndNodeXOffset { get; set; }
 
 
     public string EndFixityStart { get; set; }
@@ -46,17 +46,17 @@ public class XmiStructuralCurveMember : XmiBaseEntity
         XmiStructuralCurveMemberSystemLineEnum systemLine,
         XmiStructuralPointConnection beginNode,
         XmiStructuralPointConnection endNode,
-        float length,
+        double length,
 
         string localAxisX,
         string localAxisY,
         string localAxisZ,
-                float beginNodeXOffset,
-        float endNodeXOffset,
-        float beginNodeYOffset,
-        float endNodeYOffset,
-        float beginNodeZOffset,
-        float endNodeZOffset,
+        double beginNodeXOffset,
+        double endNodeXOffset,
+        double beginNodeYOffset,
+        double endNodeYOffset,
+        double beginNodeZOffset,
+        double endNodeZOffset,
 
 
         string endFixityStart,

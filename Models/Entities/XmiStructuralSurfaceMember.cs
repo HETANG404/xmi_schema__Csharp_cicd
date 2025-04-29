@@ -4,18 +4,18 @@ public class XmiStructuralSurfaceMember : XmiBaseEntity
 {
     public XmiStructuralMaterial Material { get; set; }
     public XmiStructuralSurfaceMemberTypeEnum SurfaceMemberType { get; set; }
-    public float Thickness { get; set; }
+    public double Thickness { get; set; }
     public XmiStructuralSurfaceMemberSystemPlaneEnum SystemPlane { get; set; }
     public List<XmiStructuralPointConnection> Nodes { get; set; }
     public XmiStructuralStorey Storey { get; set; }
 
     public List<XmiSegment> Segments { get; set; }
-    public float Area { get; set; }
-    public float ZOffset { get; set; }
+    public double Area { get; set; }
+    public double ZOffset { get; set; }
     public string LocalAxisX { get; set; }
     public string LocalAxisY { get; set; }
     public string LocalAxisZ { get; set; }
-    public float Height { get; set; }
+    public double Height { get; set; }
     public XmiStructuralSurfaceMember(
         string id,
         string name,
@@ -24,18 +24,18 @@ public class XmiStructuralSurfaceMember : XmiBaseEntity
         string description,
         XmiStructuralMaterial material,
         XmiStructuralSurfaceMemberTypeEnum surfaceMemberType,
-        float thickness,
+        double thickness,
         XmiStructuralSurfaceMemberSystemPlaneEnum systemPlane,
 
         List<XmiStructuralPointConnection> nodes,
         XmiStructuralStorey storey,
         List<XmiSegment> segments,
-        float area,
-        float zOffset,
+        double area,
+        double zOffset,
         string localAxisX,
         string localAxisY,
         string localAxisZ,
-        float height
+        double height
 
     ) : base(id, name, ifcguid, nativeId, description, nameof(XmiStructuralSurfaceMember))
     {
