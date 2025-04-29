@@ -5,7 +5,7 @@
   },
   "projects": {
     "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj": {
-      "version": "0.0.8",
+      "version": "0.0.9",
       "restore": {
         "projectUniqueName": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj",
         "projectName": "xmi-schema-Csharp.Core",
