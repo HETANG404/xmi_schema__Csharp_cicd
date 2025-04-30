@@ -39,7 +39,7 @@ namespace XmiCore
                 // CurveMember → Storey
                 if (entity is XmiStructuralCurveMember curveWithStorey && curveWithStorey.Storey != null)
                 {
-                    _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curveWithStorey, curveWithStorey.Storey));
+                    _relationshipManager.AddRelationship(new XmiHasStructuralStorey(curveWithStorey, curveWithStorey.Storey));
                 }
 
                 // CurveMember → Segments
