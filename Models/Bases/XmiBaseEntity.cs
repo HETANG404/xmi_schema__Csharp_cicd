@@ -22,7 +22,7 @@ public class XmiBaseEntity
     )
     {
         ID = id;
-        Name = name; // Name = string.IsNullOrWhiteSpace(name) ? id : name;
+        Name = string.IsNullOrWhiteSpace(name) ? id : name;
         IFCGUID = ifcguid;
         NativeId = nativeId;
         Description = description;
