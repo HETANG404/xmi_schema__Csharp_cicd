@@ -6,5 +6,5 @@ public enum XmiStructuralCurveMemberTypeEnum
     [EnumValue("Column")] Column,
     [EnumValue("Bracing")] Bracing,
     [EnumValue("Other")] Other,
-        [EnumValue("Unknown")] Unknown
+    [EnumValue("Unknown")] Unknown
 }

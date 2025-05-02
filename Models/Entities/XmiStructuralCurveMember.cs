@@ -1,13 +1,17 @@
 namespace XmiCore;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 
 public class XmiStructuralCurveMember : XmiBaseEntity
 {
     public XmiStructuralCrossSection CrossSection { get; set; }
     public XmiStructuralStorey Storey { get; set; }
+    [JsonConverter(typeof(StringEnumConverter))]
     public XmiStructuralCurveMemberTypeEnum CurvememberType { get; set; }
     public List<XmiStructuralPointConnection> Nodes { get; set; }
     public List<XmiBaseEntity> Segments { get; set; }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public XmiStructuralCurveMemberSystemLineEnum SystemLine { get; set; }
     public XmiStructuralPointConnection BeginNode { get; set; }
     public XmiStructuralPointConnection EndNode { get; set; }
