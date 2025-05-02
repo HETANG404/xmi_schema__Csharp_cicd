@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "xmi-schema-Csharp.Core/0.0.9": {
+      "xmi-schema-Csharp.Core/0.0.13": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
           "QuikGraph": "2.5.0"
@@ -34,7 +34,7 @@
     }
   },
   "libraries": {
-    "xmi-schema-Csharp.Core/0.0.9": {
+    "xmi-schema-Csharp.Core/0.0.13": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

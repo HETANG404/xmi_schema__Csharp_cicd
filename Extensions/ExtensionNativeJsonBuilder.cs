@@ -44,38 +44,62 @@ namespace XmiCore
         }
 
         private Dictionary<string, object> GetAttributes(object obj)
+{
+    var dict = new Dictionary<string, object>();
+
+    var props = obj.GetType()
+        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        .OrderBy(p => p.MetadataToken); // 声明顺序排序 ✅
+
+    foreach (var prop in props)
+    {
+        var value = prop.GetValue(obj);
+        if (value == null)
+            continue;
+
+        var type = prop.PropertyType;
+
+        if (type.IsEnum)
         {
-            var dict = new Dictionary<string, object>();
-
-            var props = obj.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .OrderBy(p => p.MetadataToken); // 声明顺序排序
-
-            foreach (var prop in props)
+            var enumName = value.ToString();
+            if (!string.IsNullOrEmpty(enumName))
             {
-                var value = prop.GetValue(obj);
-                if (value == null)
-                    continue;
-
-                var type = prop.PropertyType;
-
-                if (type.IsPrimitive || type == typeof(string) || type.IsEnum ||
-                    type == typeof(decimal) || type == typeof(DateTime) ||
-                    type == typeof(float) || type == typeof(double))
+                var field = type.GetField(enumName);
+                if (field != null)
                 {
-                    dict[prop.Name] = value;
+                    var enumValueAttr = field.GetCustomAttribute<EnumValueAttribute>();
+                    dict[prop.Name] = enumValueAttr?.Value ?? enumName;
                 }
-                else if (value is XmiBaseEntity entityRef)
+                else
                 {
-                    dict[prop.Name] = entityRef.ID;
-                }
-                else if (value is IEnumerable<XmiBaseEntity> entityList)
-                {
-                    dict[prop.Name] = entityList.Select(e => e.ID).ToList();
+                    dict[prop.Name] = enumName; // fallback if field not found
                 }
             }
-
-            return dict;
+            else
+            {
+                dict[prop.Name] = value; // fallback if .ToString() failed
+            }
         }
+        else if (type.IsPrimitive || type == typeof(string) ||
+                 type == typeof(decimal) || type == typeof(DateTime) ||
+                 type == typeof(float) || type == typeof(double))
+        {
+            dict[prop.Name] = value;
+        }
+        else if (value is XmiBaseEntity entityRef)
+        {
+            dict[prop.Name] = entityRef.ID;
+        }
+        else if (value is IEnumerable<XmiBaseEntity> entityList)
+        {
+            dict[prop.Name] = entityList.Select(e => e.ID).ToList();
+        }
+        // 可选：如果你想递归序列化嵌套对象，这里可以扩展
+    }
+
+    return dict;
+}
+
+        
     }
 }
