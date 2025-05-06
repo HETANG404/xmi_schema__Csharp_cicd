@@ -6,7 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>0.0.15</Version>
+
     <PackageId>xmi-schema-csharp</PackageId>
+
+
   </PropertyGroup>
 
   <ItemGroup>
