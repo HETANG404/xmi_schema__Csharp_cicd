@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Relationships;
 
-namespace XmiCore
-{
+namespace XmiSchema.Core.Interfaces;
+
     public interface IModelManager
     {
         void AddEntity(XmiBaseEntity entity);
@@ -12,4 +14,4 @@ namespace XmiCore
 
         List<XmiBaseRelationship> GetAllRelationships();
     }
-}
+

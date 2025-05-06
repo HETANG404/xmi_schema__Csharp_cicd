@@ -1,6 +1,8 @@
-namespace XmiCore;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
+using XmiSchema.Core.Enums;
+
+namespace XmiSchema.Core.Entities;
 
 public class XmiStructuralCurveMember : XmiBaseEntity
 {

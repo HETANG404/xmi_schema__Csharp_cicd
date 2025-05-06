@@ -1,5 +1,6 @@
-namespace XmiCore;
+using XmiSchema.Core.Entities;
 
+namespace XmiSchema.Core.Relationships;
 public class XmiHasStructuralNode : XmiBaseRelationship
 {
     public XmiHasStructuralNode(

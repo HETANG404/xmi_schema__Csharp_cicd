@@ -1,5 +1,4 @@
-
-namespace XmiCore;
+namespace XmiSchema.Core.Enums;
 public enum XmiUnitEnum
 {
     [EnumValue("m^3")] Meter3,

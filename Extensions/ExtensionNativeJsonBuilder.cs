@@ -1,12 +1,10 @@
-namespace XmiCore
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using Newtonsoft.Json;
+using System.Reflection;
+using Newtonsoft.Json;
+using XmiSchema.Core.Models;
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Enums;
 
+namespace XmiSchema.Core.Handlers;
     public class ExtensionNativeJsonBuilder
     {
         private readonly XmiModel _model;
@@ -102,4 +100,4 @@ namespace XmiCore
 
         
     }
-}
+

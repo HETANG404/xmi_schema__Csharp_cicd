@@ -1,5 +1,4 @@
-
-namespace XmiCore;
+namespace XmiSchema.Core.Enums;
 public enum XmiShapeEnum
 {
     [EnumValue("Rectangular")] Rectangular,

@@ -1,5 +1,4 @@
-
-namespace XmiCore;
+namespace XmiSchema.Core.Enums;
 public enum XmiStructuralCurveMemberSystemLineEnum
 {
     [EnumValue("TopMiddle")] TopMiddle,

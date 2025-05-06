@@ -1,6 +1,8 @@
+using XmiSchema.Core.Interfaces;
+using XmiSchema.Core.Relationships;
 
-using XmiCore;
 
+namespace XmiSchema.Core.Managers;
 public class RelationshipManager<T> : IRelationshipManager<T>where T : XmiBaseRelationship
 {
     private readonly Dictionary<string, T> _relationships = new();

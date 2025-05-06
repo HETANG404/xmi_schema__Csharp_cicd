@@ -1,4 +1,4 @@
-namespace XmiCore;
+namespace XmiSchema.Core.Entities;
 
 public class XmiBaseEntity
 {

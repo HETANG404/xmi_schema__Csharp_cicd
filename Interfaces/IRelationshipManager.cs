@@ -1,5 +1,8 @@
-namespace XmiCore
-{
+using XmiSchema.Core.Relationships;
+
+
+namespace XmiSchema.Core.Interfaces;
+
     public interface IRelationshipManager<T> where T : XmiBaseRelationship
     {
         /// <summary>
@@ -37,4 +40,4 @@ namespace XmiCore
         /// </summary>
         void Clear();
     }
-}
+

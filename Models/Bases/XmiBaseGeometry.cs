@@ -1,4 +1,7 @@
-namespace XmiCore;
+using XmiSchema.Core.Entities;
+
+
+namespace XmiSchema.Core.Geometries;
 
 public abstract class XmiBaseGeometry : XmiBaseEntity
 {

@@ -8,7 +8,7 @@
       "version": "0.0.15",
       "restore": {
         "projectUniqueName": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj",
-        "projectName": "xmi-schema-csharp",
+        "projectName": "XmiSchema.Core",
         "projectPath": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
         "outputPath": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\obj\\",

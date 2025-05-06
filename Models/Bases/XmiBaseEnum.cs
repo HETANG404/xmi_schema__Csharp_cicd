@@ -1,4 +1,4 @@
-namespace XmiCore;
+namespace XmiSchema.Core.Enums;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class EnumValueAttribute : Attribute

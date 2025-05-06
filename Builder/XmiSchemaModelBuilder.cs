@@ -1,8 +1,12 @@
-using XmiCore;
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Relationships;
+using XmiSchema.Core.Models;
+using XmiSchema.Core.Managers;
+using XmiSchema.Core.Handlers;
 
 
-namespace XmiBuilder
-{
+namespace XmiSchema.Core.Results;
+
     public class XmiSchemaModelBuilder
     {
         private readonly EntityManager<XmiBaseEntity> _entityManager = new();
@@ -77,4 +81,4 @@ namespace XmiBuilder
             return jsonBuilder.BuildJson();
         }
     }
-}
+

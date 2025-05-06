@@ -1,4 +1,6 @@
-namespace XmiCore;
+using XmiSchema.Core.Enums;
+
+namespace XmiSchema.Core.Entities;
 
 public class XmiStructuralMaterial : XmiBaseEntity
 {

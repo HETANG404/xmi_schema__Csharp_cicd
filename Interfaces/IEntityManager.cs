@@ -1,5 +1,8 @@
-namespace XmiCore
-{
+using XmiSchema.Core.Entities;
+
+
+namespace XmiSchema.Core.Interfaces;
+
     public interface IEntityManager<T> where T : XmiBaseEntity
     {
         /// <summary>
@@ -35,4 +38,4 @@ namespace XmiCore
         /// </summary>
         void Clear();
     }
-}
+

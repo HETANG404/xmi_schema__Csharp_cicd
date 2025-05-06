@@ -1,5 +1,4 @@
-namespace XmiCore;
-
+namespace XmiSchema.Core.Entities;
 public class XmiStructuralStorey : XmiBaseEntity
 {
     public double StoreyElevation { get; set; }

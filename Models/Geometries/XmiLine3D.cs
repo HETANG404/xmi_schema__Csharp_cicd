@@ -1,4 +1,4 @@
-namespace XmiCore;
+namespace XmiSchema.Core.Geometries;
 
 public class XmiLine3D : XmiBaseGeometry
 {

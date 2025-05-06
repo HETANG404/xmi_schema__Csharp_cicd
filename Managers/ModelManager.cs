@@ -1,5 +1,11 @@
-namespace XmiCore
-{
+using XmiSchema.Core.Models;
+using XmiSchema.Core.Interfaces;
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Relationships;
+
+
+namespace XmiSchema.Core.Managers;
+
     public class ModelManager : IModelManager
     {
         private readonly XmiModel _model;
@@ -31,4 +37,4 @@ namespace XmiCore
             return _model.Relationships;
         }
     }
-}
+

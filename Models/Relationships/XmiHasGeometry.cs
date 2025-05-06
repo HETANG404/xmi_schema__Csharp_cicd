@@ -1,5 +1,7 @@
-namespace XmiCore;
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Geometries;
 
+namespace XmiSchema.Core.Relationships;
 public class XmiHasGeometry : XmiBaseRelationship
 {
     public XmiHasGeometry(

@@ -1,4 +1,8 @@
-namespace XmiCore;
+using XmiSchema.Core.Enums;
+using XmiSchema.Core.Geometries;
+
+
+namespace XmiSchema.Core.Entities;
 
 public class XmiSegment : XmiBaseEntity
 {

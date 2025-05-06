@@ -1,4 +1,7 @@
-namespace XmiCore;
+using XmiSchema.Core.Entities;
+
+
+namespace XmiSchema.Core.Relationships;
 
 public class XmiHasPoint3D : XmiBaseRelationship
 {

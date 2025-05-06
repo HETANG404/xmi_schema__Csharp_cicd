@@ -1,5 +1,11 @@
-namespace XmiCore
-{
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Relationships;
+using XmiSchema.Core.Interfaces;
+using XmiSchema.Core.Models;
+using XmiSchema.Core.Geometries;
+
+namespace XmiSchema.Core.Handlers;
+
     public class ExtensionRelationshipExporter
     {
         private readonly IRelationshipManager<XmiBaseRelationship> _relationshipManager;
@@ -143,5 +149,5 @@ namespace XmiCore
             }
         }
     }
-}
+
 

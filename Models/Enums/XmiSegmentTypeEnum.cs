@@ -1,5 +1,4 @@
-namespace XmiCore;
-
+namespace XmiSchema.Core.Enums;
 public enum XmiSegmentTypeEnum
 {
     [EnumValue("Line")] Line,

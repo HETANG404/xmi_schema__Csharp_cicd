@@ -1,4 +1,4 @@
-namespace XmiCore;
+namespace XmiSchema.Core.Enums;
 public enum XmiStructuralMaterialTypeEnum
 {
     [EnumValue("Concrete")] Concrete,

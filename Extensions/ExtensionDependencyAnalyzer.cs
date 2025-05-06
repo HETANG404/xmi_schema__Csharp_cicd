@@ -1,7 +1,9 @@
 using QuikGraph;
 using QuikGraph.Algorithms.TopologicalSort;
+using XmiSchema.Core.Entities;
+using XmiSchema.Core.Relationships;
 
-namespace XmiCore;
+namespace XmiSchema.Core.Handlers;
 
 
 // DependencyAnalyzer

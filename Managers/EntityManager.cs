@@ -1,4 +1,7 @@
-namespace XmiCore;
+using XmiSchema.Core.Interfaces;
+using XmiSchema.Core.Entities;
+
+namespace XmiSchema.Core.Managers;
 
 
 public class EntityManager<T> : IEntityManager<T> where T : XmiBaseEntity
