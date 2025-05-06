@@ -5,10 +5,10 @@
   },
   "projects": {
     "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj": {
-      "version": "0.0.13",
+      "version": "0.0.15",
       "restore": {
         "projectUniqueName": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj",
-        "projectName": "xmi-schema-Csharp.Core",
+        "projectName": "xmi-schema-csharp",
         "projectPath": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\xmi-schema-Csharp.Core.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
         "outputPath": "E:\\xmi-schema-Csharp\\xmi-schema-Csharp.Core\\obj\\",
