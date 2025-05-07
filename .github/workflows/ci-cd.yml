@@ -111,7 +111,7 @@ jobs:
       - name: 显示 NuGet 包
         run: ls -R ./packages
 
-      - name: 发布 NuGet 包
+      - name: 发布到 NuGet 包
         run: |
           PACKAGE=$(find packages -name "*.nupkg" | head -n 1)
           if [ -z "$PACKAGE" ]; then
