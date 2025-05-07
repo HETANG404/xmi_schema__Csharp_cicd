@@ -14,7 +14,7 @@ jobs:
     name: 版本管理和标签
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 允许创建 Git 标签
+      contents: write
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
       new_version: ${{ steps.format_version.outputs.version }}
@@ -22,76 +22,64 @@ jobs:
       - name: 🚀 检出代码
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 获取完整的 Git 历史以便正确分析 commit
-       
+          fetch-depth: 0
+
       - name: 🔢 根据 commit 规范生成版本
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: patch  # 默认递增补丁版本
-          tag_prefix: "v"  # 使用 v 作为标签前缀，例如 v1.0.0
+          default_bump: patch
+          tag_prefix: "v"
           release_branches: main
-          # 以下是可选的自定义配置
-          major_pattern: "(BREAKING CHANGE|major)"  # 主版本变更的模式
-          minor_pattern: "feat:"  # 次版本变更的模式
-          patch_pattern: "(fix|docs|style|refactor|perf|test|ci|build|chore):"  # 补丁版本变更的模式
-       
+          major_pattern: "(BREAKING CHANGE|major)"
+          minor_pattern: "feat:"
+          patch_pattern: "(fix|docs|style|refactor|perf|test|ci|build|chore):"
+
       - name: 🧐 调试版本生成
         run: |
           echo "上一个标签: ${{ steps.tag_version.outputs.previous_tag }}"
           echo "新标签: ${{ steps.tag_version.outputs.new_tag }}"
           echo "部分变更日志: ${{ steps.tag_version.outputs.changelog }}"
-      
+
       - name: 📝 格式化版本号用于 NuGet
         id: format_version
         run: |
           TAG="${{ steps.tag_version.outputs.new_tag }}"
           if [[ -z "$TAG" ]]; then
-            echo "❌ 错误: new_tag 为空! 可能是版本生成工具失败。"
+            echo "❌ 错误: new_tag 为空!"
             exit 1
           fi
-          # 去掉版本号前面的 'v' 前缀
           VERSION=${TAG#v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "✅ 成功设置 VERSION=$VERSION"
- 
+          echo "✅ 设置 VERSION=$VERSION"
+
   update-csproj:
     name: 更新项目文件版本
     needs: versioning
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 明确给予写入内容的权限
+      contents: write
     steps:
       - name: 🚀 检出代码
         uses: actions/checkout@v4
-        
+
       - name: 📝 更新 csproj 文件版本号
         run: |
           VERSION="${{ needs.versioning.outputs.new_version }}"
-          if [[ -z "$VERSION" ]]; then
-            echo "❌ 错误: VERSION 为空!"
-            exit 1
-          fi
           echo "✅ 使用版本号: $VERSION 更新 csproj 文件"
-          
-          # 使用 sed 更新所有 csproj 文件中的版本号
-          # 下面的命令会查找并替换 <Version>任何内容</Version> 为新的版本号
           find . -name "*.csproj" -type f -exec sed -i "s/<Version>[^<]*<\/Version>/<Version>$VERSION<\/Version>/g" {} \;
-          
-      - name: 🔍 检查更新后的 csproj 文件
+
+      - name: 🔍 查看更新结果
         run: |
-          echo "更新后的 csproj 文件内容:"
-          cat $(find . -name "*.csproj" -type f) | grep -A 1 -B 1 "<Version>"
-      
-      # 使用专门的 Action 进行自动提交
-      - name: 💾 提交版本号更新
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
+          find . -name "*.csproj" -type f | xargs grep "<Version>"
+
+      - name: 💾 提交版本号更新到当前分支
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: 更新版本号到 ${{ needs.versioning.outputs.new_version }} [skip ci]"
           file_pattern: '*.csproj'
-          branch: main
+          branch: ${{ github.ref_name }}
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
           commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
@@ -100,27 +88,26 @@ jobs:
     name: 构建和测试
     needs: [versioning, update-csproj]
     runs-on: ubuntu-latest
-    
     steps:
       - name: 🚀 检出代码
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}  # 确保获取最新的提交，包括版本更新
-       
+          ref: ${{ github.ref }}
+
       - name: 🏗 设置 .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-       
+
       - name: 📦 还原依赖
         run: dotnet restore
-       
+
       - name: 🏗 构建项目
         run: dotnet build --configuration Release --no-restore
-       
+
       - name: ✅ 运行测试
         run: dotnet test --configuration Release --no-build --logger trx
- 
+
   publish-nuget:
     name: 发布到 NuGet
     needs: [versioning, update-csproj, build-and-test]
@@ -130,40 +117,31 @@ jobs:
       - name: 🚀 检出代码
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}  # 确保获取最新的提交，包括版本更新
-       
+          ref: ${{ github.ref }}
+
       - name: 🏗 设置 .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-       
+
       - name: 📦 还原依赖
         run: dotnet restore
-       
-      - name: 🏗 构建项目
-        run: dotnet build --configuration Release --no-restore
-       
-      - name: 🧐 检查版本号
+
+      - name: 📦 打包 NuGet（显式指定版本）
         run: |
           VERSION="${{ needs.versioning.outputs.new_version }}"
-          if [[ -z "$VERSION" ]]; then
-            echo "❌ 错误: VERSION 为空!"
-            exit 1
-          fi
-          echo "✅ 使用版本号: $VERSION"
-       
-      - name: 📦 打包 NuGet
-        run: dotnet pack --configuration Release --output ./packages --no-build
-       
+          echo "✅ 使用版本号: $VERSION 打包"
+          dotnet pack --configuration Release --output ./packages --no-build /p:PackageVersion=$VERSION
+
       - name: 🧐 验证 NuGet 包
         run: ls -R packages || echo "❌ 未找到 NuGet 包!"
-       
+
       - name: 🚀 发布到 NuGet
         run: |
           PACKAGE=$(find packages -name "*.nupkg" | head -n 1)
           if [ -z "$PACKAGE" ]; then
-            echo "❌ 未找到 NuGet 包! 构建可能失败。"
+            echo "❌ 未找到 NuGet 包!"
             exit 1
           fi
           echo "✅ 找到 NuGet 包: $PACKAGE"
-          dotnet nuget push "$PACKAGE" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push "$PACKAGE" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
