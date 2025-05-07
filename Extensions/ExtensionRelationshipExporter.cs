@@ -69,13 +69,13 @@ namespace XmiSchema.Core.Handlers;
                 // CurveMember → BeginNode
                 if (entity is XmiStructuralCurveMember curveWithBeginNode && curveWithBeginNode.BeginNode != null)
                 {
-                    _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curveWithBeginNode, curveWithBeginNode.BeginNode));
+                    _relationshipManager.AddRelationship(new XmiHasStructuralNode(curveWithBeginNode, curveWithBeginNode.BeginNode));
                 }
 
                 // CurveMember → EndNode
                 if (entity is XmiStructuralCurveMember curveWithEndNode && curveWithEndNode.EndNode != null)
                 {
-                    _relationshipManager.AddRelationship(new XmiHasStructuralCrossSection(curveWithEndNode, curveWithEndNode.EndNode));
+                    _relationshipManager.AddRelationship(new XmiHasStructuralNode(curveWithEndNode, curveWithEndNode.EndNode));
                 }
 
 
