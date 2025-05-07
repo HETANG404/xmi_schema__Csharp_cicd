@@ -31,7 +31,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           default_bump: patch
           tag_prefix: "v"
-          release_branches: main,dev  # ✅ 支持 main 和 dev 都作为“正式发布”分支
+          release_branches: main,dev
           major_pattern: "(BREAKING CHANGE|major)"
           minor_pattern: "feat:"
           patch_pattern: "(fix|docs|style|refactor|perf|test|ci|build|chore):"
@@ -85,9 +85,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - run: dotnet restore
-      - run: dotnet build --configuration Release --no-restore
-      - run: dotnet test --configuration Release --no-build --logger trx
+      - run: dotnet restore -p:RestoreFallbackFolders=""
+      - run: dotnet build --configuration Release --no-restore -p:RestoreFallbackFolders=""
+      - run: dotnet test --configuration Release --no-build --logger trx -p:RestoreFallbackFolders=""
 
   publish-nuget:
     name: 发布到 NuGet
@@ -106,7 +106,7 @@ jobs:
       - name: 打包 NuGet（显式版本）
         run: |
           VERSION="${{ needs.versioning.outputs.new_version }}"
-          dotnet pack --configuration Release --output ./packages --no-build /p:PackageVersion=$VERSION
+          dotnet pack --configuration Release --output ./packages --no-build /p:PackageVersion=$VERSION -p:RestoreFallbackFolders=""
 
       - name: 显示 NuGet 包
         run: ls -R ./packages
