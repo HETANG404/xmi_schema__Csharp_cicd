@@ -36,77 +36,58 @@ jobs:
           minor_pattern: "feat:"
           patch_pattern: "(fix|docs|style|refactor|perf|test|ci|build|chore):"
 
-      - name: 🧐 调试版本生成
+      - name: 🧐 显示版本信息
         run: |
           echo "上一个标签: ${{ steps.tag_version.outputs.previous_tag }}"
           echo "新标签: ${{ steps.tag_version.outputs.new_tag }}"
-          echo "部分变更日志: ${{ steps.tag_version.outputs.changelog }}"
 
-      - name: 📝 格式化版本号用于 NuGet
+      - name: 📝 格式化版本号（去掉 v 前缀）
         id: format_version
         run: |
           TAG="${{ steps.tag_version.outputs.new_tag }}"
-          if [[ -z "$TAG" ]]; then
-            echo "❌ 错误: new_tag 为空!"
-            exit 1
-          fi
           VERSION=${TAG#v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "✅ 设置 VERSION=$VERSION"
+          echo "✅ 设置版本为: $VERSION"
 
   update-csproj:
-    name: 更新项目文件版本
+    name: 更新 .csproj 版本
     needs: versioning
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: 🚀 检出代码
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 📝 更新 csproj 文件版本号
+      - name: 替换 csproj 中的版本号
         run: |
           VERSION="${{ needs.versioning.outputs.new_version }}"
-          echo "✅ 使用版本号: $VERSION 更新 csproj 文件"
           find . -name "*.csproj" -type f -exec sed -i "s/<Version>[^<]*<\/Version>/<Version>$VERSION<\/Version>/g" {} \;
 
-      - name: 🔍 查看更新结果
-        run: |
-          find . -name "*.csproj" -type f | xargs grep "<Version>"
-
-      - name: 💾 提交版本号更新到当前分支
+      - name: 提交版本号更改
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "chore: 更新版本号到 ${{ needs.versioning.outputs.new_version }} [skip ci]"
-          file_pattern: '*.csproj'
+          commit_message: "chore: 更新版本号为 ${{ needs.versioning.outputs.new_version }} [skip ci]"
+          file_pattern: "*.csproj"
           branch: ${{ github.ref_name }}
-          commit_user_name: "GitHub Actions Bot"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "GitHub Actions Bot <github-actions[bot]@users.noreply.github.com>"
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: github-actions[bot]@users.noreply.github.com
 
   build-and-test:
-    name: 构建和测试
+    name: 构建并测试
     needs: [versioning, update-csproj]
     runs-on: ubuntu-latest
     steps:
-      - name: 🚀 检出代码
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: 🏗 设置 .NET SDK
-        uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
-      - name: 📦 还原依赖
-        run: dotnet restore
-
-      - name: 🏗 构建项目
-        run: dotnet build --configuration Release --no-restore
-
-      - name: ✅ 运行测试
-        run: dotnet test --configuration Release --no-build --logger trx
+      - run: dotnet restore
+      - run: dotnet build --configuration Release --no-restore
+      - run: dotnet test --configuration Release --no-build --logger trx
 
   publish-nuget:
     name: 发布到 NuGet
@@ -114,34 +95,28 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
-      - name: 🚀 检出代码
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: 🏗 设置 .NET SDK
-        uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
-      - name: 📦 还原依赖
-        run: dotnet restore
-
-      - name: 📦 打包 NuGet（显式指定版本）
+      - name: 打包 NuGet（显式版本）
         run: |
           VERSION="${{ needs.versioning.outputs.new_version }}"
-          echo "✅ 使用版本号: $VERSION 打包"
           dotnet pack --configuration Release --output ./packages --no-build /p:PackageVersion=$VERSION
 
-      - name: 🧐 验证 NuGet 包
-        run: ls -R packages || echo "❌ 未找到 NuGet 包!"
+      - name: 显示 NuGet 包
+        run: ls -R ./packages
 
-      - name: 🚀 发布到 NuGet
+      - name: 发布 NuGet 包
         run: |
           PACKAGE=$(find packages -name "*.nupkg" | head -n 1)
           if [ -z "$PACKAGE" ]; then
-            echo "❌ 未找到 NuGet 包!"
+            echo "❌ 没有找到 NuGet 包"
             exit 1
           fi
-          echo "✅ 找到 NuGet 包: $PACKAGE"
+          echo "✅ 正在发布: $PACKAGE"
           dotnet nuget push "$PACKAGE" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
