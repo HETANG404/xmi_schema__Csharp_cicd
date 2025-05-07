@@ -87,7 +87,7 @@ jobs:
       
       # 使用专门的 Action 进行自动提交
       - name: 💾 提交版本号更新
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main/dev'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: 更新版本号到 ${{ needs.versioning.outputs.new_version }} [skip ci]"
@@ -125,7 +125,7 @@ jobs:
   publish-nuget:
     name: 发布到 NuGet
     needs: [versioning, update-csproj, build-and-test]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main/dev'
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 检出代码
