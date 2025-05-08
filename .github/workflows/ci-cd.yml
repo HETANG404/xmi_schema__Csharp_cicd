@@ -102,7 +102,7 @@ jobs:
         run: dotnet build ./xmi-schema-Csharp.Core.csproj --configuration Release --no-restore --configfile ./nuget.config -p:RestoreFallbackFolders=""
 
       - name: 运行测试
-        run: dotnet test ./xmi-schema-Csharp.Core.csproj --configuration Release --no-build --logger trx --configfile ./nuget.config -p:RestoreFallbackFolders=""
+        run: dotnet test ./xmi-schema-Csharp.Core.csproj --configuration Release --no-build --logger trx -p:RestoreFallbackFolders=""
 
   publish-nuget:
     name: 发布到 NuGet
