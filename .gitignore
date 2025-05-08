@@ -1,0 +1,26 @@
+# 编译产物
+/bin/
+/obj/
+/Debug/
+/Release/
+
+# Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuspec
+
+# 本地设置
+*.vs/
+.vscode/
+
+
+# 个人开发日志
+/_private/
