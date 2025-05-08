@@ -15,7 +15,7 @@ public class XmiPoint3D : XmiBaseGeometry
         double x,
         double y,
         double z
-    ) : base(id, name, ifcGuid, nativeId, description)
+    ) : base(id, name, ifcGuid, nativeId, description,nameof(XmiPoint3D))
     {
         X = x;
         Y = y;
