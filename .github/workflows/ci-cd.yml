@@ -167,7 +167,6 @@ jobs:
           dotnet pack ./xmi-schema-Csharp.Core.csproj \
             --configuration Release \
             --output ./packages \
-            --no-build \
             --configfile ./nuget.config \
             /p:PackageVersion=$VERSION -p:RestoreFallbackFolders=""
 
