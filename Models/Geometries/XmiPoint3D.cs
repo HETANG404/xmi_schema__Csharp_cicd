@@ -1,9 +1,14 @@
+using System.Text.Json.Serialization;
+
 namespace XmiSchema.Core.Geometries;
 
 public class XmiPoint3D : XmiBaseGeometry
 {
+    [JsonPropertyOrder(6)]
     public double X { get; set; }
+    [JsonPropertyOrder(7)]
     public double Y { get; set; }
+    [JsonPropertyOrder(8)]
     public double Z { get; set; }
 
     public XmiPoint3D(
