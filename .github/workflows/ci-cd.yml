@@ -81,6 +81,9 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
+      - name: 拉取最新版本变更
+        run: git pull origin ${{ github.ref_name }}
+
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
@@ -95,8 +98,20 @@ jobs:
           </configuration>
           EOF
 
-      - name: 恢复依赖
-        run: dotnet restore ./xmi-schema-Csharp.Core.csproj --configfile ./nuget.config -p:RestoreFallbackFolders=""
+      - name: 恢复依赖（dotnet restore）
+        run: |
+          echo "📦 执行 restore..."
+          dotnet restore ./xmi-schema-Csharp.Core.csproj --configfile ./nuget.config -p:RestoreFallbackFolders=""
+
+      - name: 检查是否成功生成 project.assets.json
+        run: |
+          echo "🔍 检查 obj/project.assets.json 是否存在..."
+          if [ ! -f ./obj/project.assets.json ]; then
+            echo "❌ 错误：obj/project.assets.json 未生成，说明 restore 失败"
+            exit 1
+          else
+            echo "✅ 成功：obj/project.assets.json 已生成"
+          fi
 
       - name: 构建项目
         run: dotnet build ./xmi-schema-Csharp.Core.csproj --configuration Release --no-restore --configfile ./nuget.config -p:RestoreFallbackFolders=""
@@ -113,6 +128,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
+
+      - name: 拉取最新版本变更
+        run: git pull origin ${{ github.ref_name }}
 
       - uses: actions/setup-dotnet@v3
         with:
