@@ -85,9 +85,17 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - run: dotnet restore -p:RestoreFallbackFolders=""
-      - run: dotnet build --configuration Release --no-restore -p:RestoreFallbackFolders=""
-      - run: dotnet test --configuration Release --no-build --logger trx -p:RestoreFallbackFolders=""
+      - name: 创建空 NuGet.Config（覆盖默认）
+        run: echo '<configuration></configuration>' > ./empty.config
+
+      - name: 恢复依赖
+        run: dotnet restore ./xmi-schema-Csharp.Core.csproj --configfile ./empty.config -p:RestoreFallbackFolders=""
+
+      - name: 构建项目
+        run: dotnet build ./xmi-schema-Csharp.Core.csproj --configuration Release --no-restore --configfile ./empty.config -p:RestoreFallbackFolders=""
+
+      - name: 运行测试
+        run: dotnet test ./xmi-schema-Csharp.Core.csproj --configuration Release --no-build --logger trx --configfile ./empty.config -p:RestoreFallbackFolders=""
 
   publish-nuget:
     name: 发布到 NuGet
@@ -103,10 +111,18 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: 创建空 NuGet.Config（覆盖默认）
+        run: echo '<configuration></configuration>' > ./empty.config
+
       - name: 打包 NuGet（显式版本）
         run: |
           VERSION="${{ needs.versioning.outputs.new_version }}"
-          dotnet pack --configuration Release --output ./packages --no-build /p:PackageVersion=$VERSION -p:RestoreFallbackFolders=""
+          dotnet pack ./xmi-schema-Csharp.Core.csproj \
+            --configuration Release \
+            --output ./packages \
+            --no-build \
+            --configfile ./empty.config \
+            /p:PackageVersion=$VERSION -p:RestoreFallbackFolders=""
 
       - name: 显示 NuGet 包
         run: ls -R ./packages
