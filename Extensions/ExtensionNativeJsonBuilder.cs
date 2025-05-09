@@ -17,15 +17,13 @@ namespace XmiSchema.Core.Handlers
 
         public string BuildJson()
         {
-            var nodes = _model.Entities.Select(e => new Dictionary<string, object>
-            {
-                [e.GetType().Name] = GetAttributes(e)
-            }).ToList();
+            var nodes = _model.Entities
+                .Select(e => GetAttributes(e))
+                .ToList();
 
-            var edges = _model.Relationships.Select(r => new Dictionary<string, object>
-            {
-                [r.GetType().Name] = GetAttributes(r)
-            }).ToList();
+            var edges = _model.Relationships
+                .Select(r => GetAttributes(r))
+                .ToList();
 
             var graphJson = new
             {
