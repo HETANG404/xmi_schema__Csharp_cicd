@@ -1,5 +1,4 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using System.Reflection;
 using XmiSchema.Core.Models;
 using XmiSchema.Core.Entities;
@@ -34,14 +33,7 @@ namespace XmiSchema.Core.Handlers
                 edges
             };
 
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                PropertyNamingPolicy = null,
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            };
-
-            return JsonSerializer.Serialize(graphJson, options);
+            return JsonConvert.SerializeObject(graphJson, Formatting.Indented);
         }
 
         public void Save(string path)
@@ -56,15 +48,15 @@ namespace XmiSchema.Core.Handlers
 
             var props = obj.GetType()
                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .OrderBy(p => p.MetadataToken); // 声明顺序排序
+                .OrderBy(p => p.MetadataToken); // 按声明顺序输出
 
             foreach (var prop in props)
             {
                 var value = prop.GetValue(obj);
-                if (value == null)
-                    continue;
+                if (value == null) continue;
 
                 var type = prop.PropertyType;
+                object finalValue = null;
 
                 if (type.IsEnum)
                 {
@@ -72,36 +64,33 @@ namespace XmiSchema.Core.Handlers
                     if (!string.IsNullOrEmpty(enumName))
                     {
                         var field = type.GetField(enumName);
-                        if (field != null)
-                        {
-                            var enumValueAttr = field.GetCustomAttribute<EnumValueAttribute>();
-                            dict[prop.Name] = enumValueAttr?.Value ?? enumName;
-                        }
-                        else
-                        {
-                            dict[prop.Name] = enumName;
-                        }
+                        var enumValueAttr = field?.GetCustomAttribute<EnumValueAttribute>();
+                        finalValue = enumValueAttr?.Value ?? enumName;
                     }
                     else
                     {
-                        dict[prop.Name] = value;
+                        finalValue = value;
                     }
                 }
                 else if (type.IsPrimitive || type == typeof(string) ||
                          type == typeof(decimal) || type == typeof(DateTime) ||
                          type == typeof(float) || type == typeof(double))
                 {
-                    dict[prop.Name] = value;
+                    finalValue = value;
                 }
                 else if (value is XmiBaseEntity entityRef)
                 {
-                    dict[prop.Name] = entityRef.ID;
+                    finalValue = entityRef.ID;
                 }
                 else if (value is IEnumerable<XmiBaseEntity> entityList)
                 {
-                    dict[prop.Name] = entityList.Select(e => e.ID).ToList();
+                    finalValue = entityList.Select(e => e.ID).ToList();
                 }
-                // 其他复杂嵌套类型目前忽略，可扩展
+
+                if (finalValue != null)
+                {
+                    dict[prop.Name] = finalValue;
+                }
             }
 
             return dict;
