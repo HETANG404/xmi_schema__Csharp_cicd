@@ -90,6 +90,7 @@ namespace XmiSchema.Core.Handlers
                     dict[prop.Name] = finalValue;
                 }
             }
+// return
 
             return dict;
         }
