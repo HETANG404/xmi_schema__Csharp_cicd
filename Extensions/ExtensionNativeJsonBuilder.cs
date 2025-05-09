@@ -16,15 +16,24 @@ namespace XmiSchema.Core.Handlers
 
         public string BuildJson()
         {
-            var nodes = _model.Entities.Select(e => new Dictionary<string, object>
-            {
-                [e.GetType().Name] = e
-            }).ToList();
+            var nodes = _model.Entities
+                .Select(e => new Dictionary<string, object>
+                {
+                    [e.GetType().Name] = new { Id = e.ID }
+                })
+                .ToList();
 
-            var edges = _model.Relationships.Select(r => new Dictionary<string, object>
-            {
-                [r.GetType().Name] = r
-            }).ToList();
+            var edges = _model.Relationships
+                .Select(r => new Dictionary<string, object>
+                {
+                    [r.GetType().Name] = new
+                    {
+                        Id = r.ID,
+                        SourceId = r.Source?.ID,
+                        TargetId = r.Target?.ID
+                    }
+                })
+                .ToList();
 
             var graphJson = new
             {
@@ -42,6 +51,7 @@ namespace XmiSchema.Core.Handlers
 
             return JsonSerializer.Serialize(graphJson, options);
         }
+
 
         public void Save(string path)
         {
