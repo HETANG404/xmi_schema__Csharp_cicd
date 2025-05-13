@@ -7,9 +7,9 @@ public class XmiStructuralMaterial : XmiBaseEntity
     public XmiStructuralMaterialTypeEnum MaterialType { get; set; }                  // Type of material (Enum)
     public double Grade { get; set; }                  // Material grade (fck, fy, yield strength, etc.)
     public double UnitWeight { get; set; }             // Unit weight of the material
-    public double EModulus { get; set; }               // Young's modulus
-    public double GModulus { get; set; }               // Shear modulus
-    public double PoissonRatio { get; set; }           // Poisson ratio
+    public string EModulus { get; set; }               // Young's modulus
+    public string GModulus { get; set; }               // Shear modulus
+    public string PoissonRatio { get; set; }           // Poisson ratio
     public double ThermalCoefficient { get; set; }     // Thermal expansion coefficient
 
     public XmiStructuralMaterial(
@@ -21,9 +21,9 @@ public class XmiStructuralMaterial : XmiBaseEntity
         XmiStructuralMaterialTypeEnum materialType,
         double grade,
         double unitWeight,
-        double eModulus,
-        double gModulus,
-        double poissonRatio,
+        string eModulus,
+        string gModulus,
+        string poissonRatio,
         double thermalCoefficient
     ) : base(id, name, ifcguid, nativeId, description, nameof(XmiStructuralMaterial))
     {
