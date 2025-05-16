@@ -3,15 +3,15 @@ using QuikGraph.Algorithms.TopologicalSort;
 using XmiSchema.Core.Entities;
 using XmiSchema.Core.Relationships;
 
-namespace XmiSchema.Core.Handlers;
+namespace XmiSchema.Core.Modules;
 
 
 // DependencyAnalyzer
-public class ExtensionDependencyAnalyzer
+public class XmiSchemaModuleDependencyAnalyzer
 {
     private readonly AdjacencyGraph<XmiBaseEntity, Edge<XmiBaseEntity>> _graph;
 
-    public ExtensionDependencyAnalyzer(List<XmiBaseEntity> entities, List<XmiBaseRelationship> relationships)
+    public XmiSchemaModuleDependencyAnalyzer(List<XmiBaseEntity> entities, List<XmiBaseRelationship> relationships)
     {
         _graph = new AdjacencyGraph<XmiBaseEntity, Edge<XmiBaseEntity>>();
 

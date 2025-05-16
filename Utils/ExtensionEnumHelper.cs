@@ -1,7 +1,7 @@
 using System.Reflection;
 using XmiSchema.Core.Enums;
 
-namespace XmiSchema.Core.Handlers;
+namespace XmiSchema.Core.Modules;
 public static class ExtensionEnumHelper
 {
     public static TEnum? FromEnumValue<TEnum>(string value) where TEnum : struct, Enum

@@ -4,13 +4,13 @@ using XmiSchema.Core.Models;
 using XmiSchema.Core.Entities;
 using XmiSchema.Core.Enums;
 
-namespace XmiSchema.Core.Handlers
+namespace XmiSchema.Core.Modules
 {
-    public class ExtensionNativeJsonBuilder
+    public class XmiSchemaModuleJsonBuilder
     {
         private readonly XmiModel _model;
 
-        public ExtensionNativeJsonBuilder(XmiModel model)
+        public XmiSchemaModuleJsonBuilder(XmiModel model)
         {
             _model = model;
         }
@@ -90,8 +90,7 @@ namespace XmiSchema.Core.Handlers
                     dict[prop.Name] = finalValue;
                 }
             }
-// return
-
+            // return
             return dict;
         }
     }

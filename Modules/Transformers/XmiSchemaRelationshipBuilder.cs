@@ -4,19 +4,20 @@ using XmiSchema.Core.Interfaces;
 using XmiSchema.Core.Models;
 using XmiSchema.Core.Geometries;
 
-namespace XmiSchema.Core.Handlers;
+namespace XmiSchema.Core.Modules;
 
-    public class ExtensionRelationshipExporter
+    public class XmiSchemaRelationshipBuilder
     {
         private readonly IRelationshipManager<XmiBaseRelationship> _relationshipManager;
 
-        public ExtensionRelationshipExporter(IRelationshipManager<XmiBaseRelationship> relationshipManager)
+        public XmiSchemaRelationshipBuilder(IRelationshipManager<XmiBaseRelationship> relationshipManager)
         {
             _relationshipManager = relationshipManager;
         }
 
-        public void ExportRelationships(XmiModel xmiModel)
+        public void CreateRelationships(XmiModel xmiModel)
         {
+            Console.WriteLine("Relationship Here!");
             foreach (var entity in xmiModel.Entities)
             {
                 // StructuralPointConnection → Point
