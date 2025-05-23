@@ -113,6 +113,32 @@ public class XmiManager : IXmiManager
     }
 
 
+    // 查询实体从指定索引的模型
+    public string GetMatchingPoint3DId(int modelIndex, XmiPoint3D importedPoint)
+    {
+        if (!IsValidModelIndex(modelIndex))
+        {
+            throw new IndexOutOfRangeException("模型索引无效");
+        }
+
+        foreach (var entity in Models[modelIndex].Entities)
+        {
+            if (entity is XmiPoint3D point)
+            {
+                if (point.X == importedPoint.X &&
+                    point.Y == importedPoint.Y &&
+                    point.Z == importedPoint.Z)
+                {
+                    return point.ID;
+                }
+            }
+        }
+
+        return null; // 或者也可以 return "-1"; 根据业务需要
+    }
+
+
+
     // 构建关系
 
 
